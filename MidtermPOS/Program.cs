@@ -18,25 +18,28 @@ namespace MidtermPOS
             //Make an abstract class for Menu that is an empty template?
             //or an array
 
-            Menu.Add(new Pizza("Small Pizza", 9.99));
-            Menu.Add(new Pizza("Medium Pizza", 11.99));
-            Menu.Add(new Pizza("Large Pizza", 13.99));
+            //Pizzas
+            Menu.Add(new Item("Small Pizza", 9.99));
+            Menu.Add(new Item("Medium Pizza", 11.99));
+            Menu.Add(new Item("Large Pizza", 13.99));
 
-            Menu.Add(new Sides("Salad", 6.99));
-            Menu.Add(new Sides("Wings", 7.99));
-            Menu.Add(new Sides("Bread", 6.99));
-            Menu.Add(new Sides("Tostada", 5.99));
+            //Sides
+            Menu.Add(new Item("Salad", 6.99));
+            Menu.Add(new Item("Wings", 7.99));
+            Menu.Add(new Item("Bread", 6.99));
+            Menu.Add(new Item("Tostada", 5.99));
 
-            Menu.Add(new Extras("2 Liter Soda", 1.99));
-            Menu.Add(new Extras("Brownie", 2.99));
-            Menu.Add(new Extras("Cookie", 1.99));
+            //Extras
+            Menu.Add(new Item("2 Liter Soda", 1.99));
+            Menu.Add(new Item("Brownie", 2.99));
+            Menu.Add(new Item("Cookie", 1.99));
 
             for (int i = 0; i < MenuList.Count; i++)
             {
-                Console.WriteLine(MenuList[i].ToString()); //print override info from UsedCar and Car
+                Console.WriteLine(MenuList[i].ToString()); //print override info from classes
                 //you can even write this without ToString Method, because the compiler will automatically do this for the printing of the object.
             }
-            Console.WriteLine("Quit");
+            Console.WriteLine("Exit Menu");
 
             Console.WriteLine("What would you like to order?");
             int CustomerChoice = int.Parse(Console.ReadLine());
@@ -48,11 +51,18 @@ namespace MidtermPOS
 
             else
             {
-                //Console.WriteLine(InventoryList[CarChoice].Make);
-                //validate input is only 1-6
+                
+                //validate input is only 1-13
                 MenuList[CustomerChoice].PrintInfo(); //can also be done with ToString
             }
 
+
+
+            //public abstract void ProcessMethod( double Balance) 
+            //{
+
+            //}
+            //Payment, then sub classes for cash, check, card. Payment should be abstract (template) and each class will return based on parameters
         }
     }
 }

@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace MidtermPOS
 {
-    class Extras
+    class Item
     {
+        //Menu class with the name, category, description, and price for each item 
         #region Variables
-        private string extrachoice;
+        private string itemlist;
         private double price;
         #endregion
 
         #region Properties
-        public string ExtraChoice
+        public string MenuItem
         {
-            set { extrachoice = value; }
-            get { return extrachoice; }
+            set { itemlist = value; }
+            get { return itemlist; }
         }
 
         public double Price
@@ -25,20 +26,19 @@ namespace MidtermPOS
             set { price = value; }
             get { return price; }
         }
-
         #endregion
 
         #region Constructors
 
-        public Extras()
+        public Item()
         {
-            extrachoice = "";
+            itemlist = "";
             price = 0;
         }
 
-        public Extras(string xtrachoice, double prz)
+        public Item(string itmlst, double prz)
         {
-            ExtraChoice = xtrachoice;
+            itemlist = itmlst;
             Price = prz;
         }
 
@@ -46,7 +46,7 @@ namespace MidtermPOS
 
         public virtual void PrintMenu()
         {
-            Console.WriteLine(ExtraChoice + "$" + Price.ToString("N2"));
+            Console.WriteLine(MenuItem + "$" + Price.ToString("N2"));
         }
     }
 }

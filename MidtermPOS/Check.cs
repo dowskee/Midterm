@@ -10,8 +10,21 @@ namespace MidtermPOS
     {
         public override string generatePaymentMethod()
         {
-            string ScanCheckNumber = Console.ReadLine();
-            //need validation
+           int ScanCheckNumber = int.Parse(Console.ReadLine());
+            if (ScanCheckNumber != 9)
+            {
+                Console.WriteLine("Please enter a valid check number. A check number will have 9 digits:");
+            }
+            else
+            {
+                while (!int.TryParse(Console.ReadLine(), out ScanCheckNumber))
+                {
+                    Console.WriteLine("Please enter a valid check number");
+                    ScanCheckNumber = int.Parse(Console.ReadLine());
+                }
+                //return ScanCheckNumber?
+            }
+
             return generatePaymentMethod();
         }
     }

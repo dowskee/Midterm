@@ -46,7 +46,7 @@ namespace MidtermPOS
 
         public virtual void PrintMenu()
         {
-            Console.WriteLine(MenuItem + "$" + Price.ToString("N2"));
+            Console.WriteLine(MenuItem.PadRight(8, ' ') + "\t" + "$" + Price.ToString("N2"));
         }
     }
 }

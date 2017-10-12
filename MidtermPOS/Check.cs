@@ -6,20 +6,13 @@ using System.Threading.Tasks;
 
 namespace MidtermPOS
 {
-    class Cash : Payment
+    class Check : Payment
     {
         public override string generatePaymentMethod()
-
         {
-            decimal AmountOfCash = decimal.Parse(Console.ReadLine());
-           // decimal AmountOfChange;
-
-            //mountOfChange = AmountOfCash - ItemSum
-
+            string ScanCheckNumber = Console.ReadLine();
             //need validation
-        
             return generatePaymentMethod();
         }
-
     }
 }

@@ -12,31 +12,30 @@ namespace MidtermPOS
         {
             Console.WriteLine("Welcome to Loco's Pizza! We hope you're hungry!");
 
+            List<Item> MenuList = new List<Item>(); //array of MenuList
 
+            //Console.WriteLine("Pizzas:");
 
-            List<Menu> MenuList = new List<Menu>(); //array of MenuList
-            //Make an abstract class for Menu that is an empty template?
-            //or an array
+            MenuList.Add(new Item("Small Pizza", 9.99));
+            MenuList.Add(new Item("Medium Pizza", 11.99));
+            MenuList.Add(new Item("Large Pizza", 13.99));
 
-            //Pizzas
-            Menu.Add(new Item("Small Pizza", 9.99));
-            Menu.Add(new Item("Medium Pizza", 11.99));
-            Menu.Add(new Item("Large Pizza", 13.99));
+            //Console.WriteLine("Sides:");
 
-            //Sides
-            Menu.Add(new Item("Salad", 6.99));
-            Menu.Add(new Item("Wings", 7.99));
-            Menu.Add(new Item("Bread", 6.99));
-            Menu.Add(new Item("Tostada", 5.99));
+            MenuList.Add(new Item("Salad", 6.99));
+            MenuList.Add(new Item("Wings", 7.99));
+            MenuList.Add(new Item("Bread", 6.99));
+            MenuList.Add(new Item("Tostada", 5.99));
 
-            //Extras
-            Menu.Add(new Item("2 Liter Soda", 1.99));
-            Menu.Add(new Item("Brownie", 2.99));
-            Menu.Add(new Item("Cookie", 1.99));
+            //Console.WriteLine("Extra Add-Ons:");
 
-            for (int i = 0; i < MenuList.Count; i++)
+            MenuList.Add(new Item("2 Liter Soda", 1.99));
+            MenuList.Add(new Item("Brownie", 2.99));
+            MenuList.Add(new Item("Cookie", 1.99));
+
+            foreach (Item item in MenuList)
             {
-                Console.WriteLine(MenuList[i].ToString()); //print override info from classes
+                item.PrintMenu(); //print override info from classes
                 //you can even write this without ToString Method, because the compiler will automatically do this for the printing of the object.
             }
             Console.WriteLine("Exit Menu");
@@ -51,9 +50,13 @@ namespace MidtermPOS
 
             else
             {
-                
-                //validate input is only 1-13
-                MenuList[CustomerChoice].PrintInfo(); //can also be done with ToString
+                decimal ItemSum = 0;
+                for (int i = 0; i < MenuList.Count; i++)
+                {
+                    ItemSum = ItemSum + MenuList.Count(); //the element is the shape itself. This is calling the area of each element in each shape.
+                }
+
+                Console.WriteLine("Your total is: " + ItemSum);
             }
 
 

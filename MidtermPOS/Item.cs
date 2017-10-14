@@ -55,7 +55,7 @@ namespace MidtermPOS
         //needs name, price, description and category for each item
         public virtual void PrintMenu()
         {
-            Console.WriteLine(MenuItem.PadRight(8, ' ') + "\t" + Description.PadRight(8, ' ') + "$" + Price.ToString("N2"));
+            Console.WriteLine(MenuItem.PadRight(20, ' ') + "\t" + Description.PadRight(20, ' ') + "$" + Price.ToString("N2"));
         }
     }
 }

@@ -17,20 +17,22 @@ namespace MidtermPOS
             
             Console.WriteLine("Welcome to Loco's Pizza! We hope you're hungry!");
             //display Menu Item, Price:?
-            //List<Item> MenuList = new List<Item>(); //array of MenuList
 
-            //StreamWriter pizza = new StreamWriter("pizza.txt");
-            //pizza.WriteLine("1. Small Pizza \t $9.99");
-            //pizza.WriteLine("2. Medium Pizza \t $11.99");
-            //pizza.WriteLine("3. Large Pizza \t $13.99");
-            //pizza.WriteLine("4. Salad \t $6.99");
-            //pizza.WriteLine("5. Wings \t $7.99");
-            //pizza.WriteLine("6. Bread \t $6.99");
-            //pizza.WriteLine("7. Tostada \t $5.99");
-            //pizza.WriteLine("8. 2 Liter Soda \t $1.99");
-            //pizza.WriteLine("9. Brownie \t $2.99");
-            //pizza.WriteLine("10. Cookie \t $1.99");
-            //pizza.Close();
+            StreamWriter pizza = new StreamWriter("Menu.txt");
+            pizza.WriteLine("1. Small Pizza".PadRight(20, ' ')+"\t"+"A small pizza w/ cheese and pepperoni".PadRight(35, ' ')+"\t"+"$9.99");
+            pizza.WriteLine("2. Medium Pizza".PadRight(20, ' ')+"\t"+"A medium pizza w/ cheese and pepperoni".PadRight(10, ' ')+"\t"+"$11.99");
+            pizza.WriteLine("3. Large Pizza".PadRight(20, ' ')+"\t"+"A large pizza w/ cheese and pepperoni".PadRight(35, ' ') +"\t"+"$13.99");
+            pizza.WriteLine("4. Salad".PadRight(20, ' ')+"\t"+"A ceasar salad with crutons".PadRight(35, ' ')+"\t"+"$6.99");
+            pizza.WriteLine("5. Tostada".PadRight(20, ' ')+"\t"+"Chef Mexico's famous Tostada".PadRight(35, ' ')+"\t"+"$5.99");
+            pizza.WriteLine("6. Cheese Bread".PadRight(20, ' ')+"\t"+"Garlic bread with four cheese blend".PadRight(25, ' ')+"\t"+"$6.99");
+            pizza.WriteLine("7. Wings".PadRight(20, ' ')+"\t"+"A dozen wings in our signature sauce".PadRight(35, ' ')+"\t"+"$7.99");
+            pizza.WriteLine("8. 2 Liter Soda".PadRight(20, ' ')+"\t"+"2 Liter soda of your choosing".PadRight(35, ' ')+"\t"+"$1.99");
+            pizza.WriteLine("9. Brownie".PadRight(20, ' ')+"\t"+"Brownie with chocolate frosting".PadRight(35, ' ')+"\t"+"$2.99");
+            pizza.WriteLine("10. Cookie".PadRight(20, ' ')+"\t"+"Chocolate chip cookie".PadRight(35, ' ')+"\t"+"$1.99");
+            pizza.WriteLine("11. Cinnamon Bread".PadRight(20, ' ')+"\t"+"Dessert bread with cinnamon".PadRight(35, ' ')+"\t"+"$4.99");
+            pizza.WriteLine("12. Extra Toppings".PadRight(20, ' ')+"\t"+"Any extra topping of your choosing".PadRight(35, ' ')+"\t"+"$0.99");
+            pizza.WriteLine("13. Exit Menu");
+            pizza.Close();
 
 
 
@@ -56,13 +58,32 @@ namespace MidtermPOS
             {
                 Console.WriteLine("Please choose an item:");
                 Console.WriteLine("1. Order an item");
-                Console.WriteLine("2. Remove and item");
+                Console.WriteLine("2. Remove an item");
                 Console.WriteLine("3. Pay");
                 Console.WriteLine("4. Exit");
                 UserOption = int.Parse(Console.ReadLine());
                 if (UserOption == 1)
                 {
-                    DisplayMenu();
+                    StreamReader MenuRead = new StreamReader("Menu.txt");
+                    string MenuDisplay = MenuRead.ReadToEnd();
+                    Console.WriteLine(MenuDisplay);
+
+                    List<Item> MenuChoice = new List<Item>();
+                    string MenuShow = MenuRead.ReadLine();
+                    Console.WriteLine(MenuShow);
+
+                    while(MenuShow != null)
+                    {
+                        string[] tempMenu = MenuShow.Split();
+                        MenuChoice.Add(new Item(tempMenu[0], tempMenu[1], double.Parse(tempMenu[2])));
+                        MenuShow = MenuRead.ReadLine();
+                    }
+
+                    foreach (Item Element in MenuChoice)
+                    {
+                        Console.WriteLine(Element.ToString());
+                    }
+
                 }
                 else if (UserOption == 2)
                 {
@@ -72,16 +93,48 @@ namespace MidtermPOS
                         PizzaList.RemoveAt(1);// put the index
                         PizzaList.Remove("UserOption");
                         PizzaList.Clear();
+
                     }
                     //remove an item from list
+                    
                 }
                 else if (UserOption == 3)
                 {
                     for (int i = 0; i < PizzaList.Count; i++)
                     {
-                        Console.WriteLine(PizzaList[i]);
+                        Console.WriteLine("How would you like to pay? Cash, Credit or Check?");
+                        //Console.WriteLine(PizzaList[i]);
                         //another nested if else for payment methods
                         //return generatePaymentMethod();
+
+                        Cash PaymentOption1 = new Cash();
+                        Card PaymentOption2 = new Card();
+                        Check PaymentOption3 = new Check();
+                        string PaymentCash = PaymentOption1.generatePaymentMethod();
+                        string PaymentCard = PaymentOption2.generatePaymentMethod();
+                        string PaymentCheck = PaymentOption3.generatePaymentMethod();
+
+                        string PaymentOption = Console.ReadLine();
+
+                        if ((PaymentOption == "cash") || (PaymentOption == "Cash"))
+                        {
+                            Console.WriteLine(PaymentCash);
+                        }
+
+                        else if (PaymentOption == "Credit" || PaymentOption == "credit")
+                        {
+                            Console.WriteLine(PaymentCard);
+                        }
+
+                        else if (PaymentOption == "Check" || PaymentOption == "check")
+                        {
+                            Console.WriteLine(PaymentCheck);
+                        }
+                        
+                        else
+                        {
+                            Console.WriteLine("Please enter a valid payment option. Cash, Credit or Check:");
+                        }
                         
                     }
                 }
@@ -136,73 +189,5 @@ namespace MidtermPOS
 
         //}
         //Payment, then sub classes for cash, check, card. Payment should be abstract (template) and each class will return based on parameters
-
-        public static void DisplayMenu()
-        {
-            Console.WriteLine("Here is the menu you may order from:");
-
-
-            
-
-            Console.WriteLine("Item".PadRight(8, ' ') + "\t" + "Description".PadRight(8, ' ') + "\t" + "Price".PadRight(8, ' '));
-
-            Item m1 = new Item("1. Small Pizza", "A small pizza with cheese and pepperoni", 9.99);
-
-            Item m2 = new Item("2. Medium Pizza", "A medium pizza with cheese and pepperoni", 10.99);
-
-            Item m3 = new Item("3. Large Pizza", "A large pizza with cheese and pepperoni", 12.99);
-
-            Item m4 = new Item("4. Salad", "A ceasar salad with crutons", 6.99);
-
-            Item m5 = new Item("5. Tostada", "Chef Mexico's famous tostada", 5.99);
-
-            Item m6 = new Item("6. Cheese Bread", "Garlic bread topped with blend of four cheeses", 6.99);
-
-            Item m7 = new Item("7. Wings", "One dozen wings tossed in our signature sauce", 7.99);
-
-            Item m8 = new Item("8. 2 Liter of Pop", "2 Liter of your choice", 1.99);
-
-            Item m9 = new Item("9. Brownie", "Large brownie with chocolate frosting", 2.99);
-
-            Item m10 = new Item("10. Cookie", "Chewy, chocolate chip cookie", 1.99);
-
-            Item m11 = new Item("11. Something", "Something good", 1.99);
-
-            Item m12 = new Item("12. Something", "Something else good", 2.99);
-
-
-            List<Item> MenuList = new List<Item>();
-
-
-            for (int i = 0; i < MenuList.Count; i++)
-            {
-                Console.WriteLine(MenuList[i].ToString()); //print override info from Item
-            }
-            Console.WriteLine("13. Quit");
-
-            Console.WriteLine("What would you like to order?");
-            int FoodChoice = int.Parse(Console.ReadLine());
-            FoodChoice = FoodChoice - 1;
-
-            MenuList[FoodChoice].PrintMenu();
-
-            if (FoodChoice == MenuList.Count)
-            {
-                Console.WriteLine("Goodbye!");
-            }
-
-            else
-            {
-                //Console.WriteLine(InventoryList[CarChoice].Make);
-                //validate input is only 1-6
-                MenuList[FoodChoice].PrintMenu(); //can also be done with ToString
-            }
-            //to remove from list:
-            //int indexToRemove = int.Parse(Console.ReadLine());
-            //MenuList = MenuList.Where((source, index) => index != indexToRemove).ToArray(); //(insert above) //removes from array list above, and will not print again
-
-            //need to have a return method that can be called in the main?
-
-        }
     }
 }

@@ -61,87 +61,74 @@ namespace MidtermPOS
                 Console.WriteLine("2. Remove an item");
                 Console.WriteLine("3. Pay");
                 Console.WriteLine("4. Exit");
-                UserOption = int.Parse(Console.ReadLine());
-                if (UserOption == 1)
+ 
+                bool programcontinues = true;
+                while (programcontinues == true)
                 {
-                    StreamReader MenuRead = new StreamReader("Menu.txt");
-                    string MenuDisplay = MenuRead.ReadToEnd();
-                    Console.WriteLine(MenuDisplay);
-
-                    List<Item> MenuChoice = new List<Item>();
-                    string MenuShow = MenuRead.ReadLine();
-                    Console.WriteLine(MenuShow);
-
-                    while(MenuShow != null)
+                   
+                    UserOption = int.Parse(Console.ReadLine());
+                    if (UserOption == 1)
                     {
-                        string[] tempMenu = MenuShow.Split();
-                        MenuChoice.Add(new Item(tempMenu[0], tempMenu[1], double.Parse(tempMenu[2])));
-                        MenuShow = MenuRead.ReadLine();
-                    }
+                        StreamReader MenuRead = new StreamReader("Menu.txt");
+                        string MenuDisplay = MenuRead.ReadToEnd();
+                        Console.WriteLine(MenuDisplay);
 
-                    foreach (Item Element in MenuChoice)
-                    {
-                        Console.WriteLine(Element.ToString());
-                    }
-
-                }
-                else if (UserOption == 2)
-                {
-                    for (int i = 0; i < PizzaList.Count; i++)
-                    {
-                        Console.WriteLine(PizzaList[i]);
-                        PizzaList.RemoveAt(1);// put the index
-                        PizzaList.Remove("UserOption");
-                        PizzaList.Clear();
-
-                    }
-                    //remove an item from list
-                    
-                }
-                else if (UserOption == 3)
-                {
-                    for (int i = 0; i < PizzaList.Count; i++)
-                    {
-                        Console.WriteLine("How would you like to pay? Cash, Credit or Check?");
-                        //Console.WriteLine(PizzaList[i]);
-                        //another nested if else for payment methods
-                        //return generatePaymentMethod();
-
-                        Cash PaymentOption1 = new Cash();
-                        Card PaymentOption2 = new Card();
-                        Check PaymentOption3 = new Check();
-                        string PaymentCash = PaymentOption1.generatePaymentMethod();
-                        string PaymentCard = PaymentOption2.generatePaymentMethod();
-                        string PaymentCheck = PaymentOption3.generatePaymentMethod();
-
-                        string PaymentOption = Console.ReadLine();
-
-                        if ((PaymentOption == "cash") || (PaymentOption == "Cash"))
-                        {
-                            Console.WriteLine(PaymentCash);
-                        }
-
-                        else if (PaymentOption == "Credit" || PaymentOption == "credit")
-                        {
-                            Console.WriteLine(PaymentCard);
-                        }
-
-                        else if (PaymentOption == "Check" || PaymentOption == "check")
-                        {
-                            Console.WriteLine(PaymentCheck);
-                        }
                         
-                        else
-                        {
-                            Console.WriteLine("Please enter a valid payment option. Cash, Credit or Check:");
-                        }
+                        Console.WriteLine("Please pick an item");
+
+                        List<Item> MenuList = new List<Item>();
+                        string OrderItem = Console.ReadLine();
                         
+                        for (int i = 0; i < MenuList.Count; i++)
+                        {
+                            Console.WriteLine(MenuList[i]);
+                        }
+
+                        Console.WriteLine($"{PizzaList[0].ToString()} has been added to your total"); //fix me
+                        //MenuChoice.Add(userchoice);
+
+                        //string MenuShow = MenuRead.ReadLine();
+                        //Console.WriteLine(MenuShow);
+
+                        //while (MenuShow != null)
+                        //{
+                        //    string[] tempMenu = MenuShow.Split();
+                        //    MenuChoice.Add(new Item(tempMenu[0], tempMenu[1], double.Parse(tempMenu[2])));
+                        //    MenuShow = MenuRead.ReadLine();
+                        //}
+
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Thanks, see ya later!");
-                    break;
+                    else if (UserOption == 2)
+                    {
+                        for (int i = 0; i < PizzaList.Count; i++)
+                        {
+                            Console.WriteLine(PizzaList[i]);
+                            PizzaList.RemoveAt(1);// put the index
+                            PizzaList.Remove("UserOption");
+                            PizzaList.Clear();
+
+                        }
+                        //remove an item from list
+
+                    }
+                    else if (UserOption == 3)
+                    {
+                        for (int i = 0; i < PizzaList.Count; i++)
+                        {
+                            Console.WriteLine("How would you like to pay? Cash, Credit or Check?");
+                            //Console.WriteLine(PizzaList[i]);
+                            //another nested if else for payment methods
+                            //return generatePaymentMethod();
+
+                            //PaymentValid();
+
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Thanks, see ya later!");
+                        break;
+                    }
                 }
             }
             //for (int i = 0; i < ShoppingItems.Count; i++)
@@ -189,5 +176,52 @@ namespace MidtermPOS
 
         //}
         //Payment, then sub classes for cash, check, card. Payment should be abstract (template) and each class will return based on parameters
+            //public static bool PaymentValid()
+            //{
+            //    bool Validation = true;
+            //    while (Validation == true)
+            //    {
+            //    Cash PaymentOption1 = new Cash();
+            //    Card PaymentOption2 = new Card();
+            //    Check PaymentOption3 = new Check();
+            //    string PaymentCash = PaymentOption1.generatePaymentMethod();
+            //    string PaymentCard = PaymentOption2.generatePaymentMethod();
+            //    string PaymentCheck = PaymentOption3.generatePaymentMethod();
+
+            //    string PaymentOption = Console.ReadLine().ToLower();
+
+            //    if ((PaymentOption == "cash") || (PaymentOption == "Cash"))
+            //    {
+            //        Console.WriteLine(PaymentCash);
+            //    }
+
+            //    else if (PaymentOption == "Credit" || PaymentOption == "credit")
+            //    {
+            //        Console.WriteLine(PaymentCard);
+            //    }
+
+            //    else if (PaymentOption == "Check" || PaymentOption == "check")
+            //    {
+            //        Console.WriteLine(PaymentCheck);
+            //    }
+
+            //    else if (PaymentOption != "Check" || PaymentOption != "Credit" || PaymentOption != "Cash")
+            //    {
+            //        Console.WriteLine("Please enter a valid payment option. Cash, Credit or Check:");
+            //    }
+            //    else
+            //    {
+            //        int id = 0;
+
+            //        while (!int.TryParse(Console.ReadLine(), out id))
+            //        {
+            //            Console.WriteLine("Nice try.");
+            //            Validation = false;
+            //        }
+            //        return false;
+            //    }
+            //    return false;
+            
+        
     }
 }

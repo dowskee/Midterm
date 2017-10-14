@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MidtermPOS
 {
-    class Program
+    class Program:Item
     {
         static void Main(string[] args)
         {
@@ -18,25 +18,6 @@ namespace MidtermPOS
             Console.WriteLine("Welcome to Loco's Pizza! We hope you're hungry!");
             //display Menu Item, Price:?
             //List<Item> MenuList = new List<Item>(); //array of MenuList
-
-            Console.WriteLine("Pizzas:");
-
-            Console.WriteLine("1. Small Pizza", 9.99);
-            Console.WriteLine("2. Medium Pizza", 11.99);
-            Console.WriteLine("3. Large Pizza", 13.99);
-
-            Console.WriteLine("Sides:");
-
-            Console.WriteLine("4. Salad", 6.99);
-            Console.WriteLine("5. Wings", 7.99);
-            Console.WriteLine("6. Bread", 6.99);
-            Console.WriteLine("7. Tostada", 5.99);
-
-            Console.WriteLine("Extra Add-Ons:");
-
-            Console.WriteLine("8. 2 Liter Soda", 1.99);
-            Console.WriteLine("9. Brownie", 2.99);
-            Console.WriteLine("10. Cookie", 1.99);
 
             //StreamWriter pizza = new StreamWriter("pizza.txt");
             //pizza.WriteLine("1. Small Pizza \t $9.99");
@@ -54,26 +35,23 @@ namespace MidtermPOS
 
 
 
-            List<Item> PizzaList = new List<Item>();
-            string str = Console.ReadLine();
-
-            int UserChoice = int.Parse(Console.ReadLine());
-
-            while (str != null)
-            {
-                string[] tempString = str.Split();
-                PizzaList.Add(new Item(tempString[0],double.Parse(tempString[1])));
-            }
-            double sum = 0;
-            if (UserChoice == 1 || UserChoice == 2 || UserChoice == 3 || UserChoice == 4 || UserChoice == 5 || UserChoice == 6 || UserChoice == 7 ||  UserChoice == 8 || UserChoice == 9 || UserChoice == 10)
-            {
-                for (int i = 0; i < PizzaList.Count; i++)
-                {
-                    sum+=PizzaList[i].Price;
-                }
-            }
+            List<string> PizzaList = new List<string>();
 
             int UserOption = 0;
+
+            //while (str != null)
+            //{
+            //    string[] tempString = str.Split();
+            //    PizzaList.Add(new Item(tempString[0],double.Parse(tempString[1])));
+            //}
+            //double sum = 0;
+            //if (UserChoice == 1 || UserChoice == 2 || UserChoice == 3 || UserChoice == 4 || UserChoice == 5 || UserChoice == 6 || UserChoice == 7 ||  UserChoice == 8 || UserChoice == 9 || UserChoice == 10)
+            //{
+            //    for (int i = 0; i < PizzaList.Count; i++)
+            //    {
+            //        sum+=PizzaList[i].Price;
+            //    }
+            //}
             while (true)
             {
                 Console.WriteLine("Please choose an item:");
@@ -84,12 +62,17 @@ namespace MidtermPOS
                 UserOption = int.Parse(Console.ReadLine());
                 if (UserOption == 1)
                 {
-                    Console.WriteLine("Please enter an item");
-                    string input = Console.ReadLine();
-                    //PizzaList.Add(UserOption); FIX ME
+                    DisplayMenu();
                 }
                 else if (UserOption == 2)
                 {
+                    for (int i = 0; i < PizzaList.Count; i++)
+                    {
+                        Console.WriteLine(PizzaList[i]);
+                        PizzaList.RemoveAt(1);// put the index
+                        PizzaList.Remove("UserOption");
+                        PizzaList.Clear();
+                    }
                     //remove an item from list
                 }
                 else if (UserOption == 3)
@@ -99,6 +82,7 @@ namespace MidtermPOS
                         Console.WriteLine(PizzaList[i]);
                         //another nested if else for payment methods
                         //return generatePaymentMethod();
+                        
                     }
                 }
                 else
@@ -152,5 +136,73 @@ namespace MidtermPOS
 
         //}
         //Payment, then sub classes for cash, check, card. Payment should be abstract (template) and each class will return based on parameters
+
+        public static void DisplayMenu()
+        {
+            Console.WriteLine("Here is the menu you may order from:");
+
+
+            
+
+            Console.WriteLine("Item".PadRight(8, ' ') + "\t" + "Description".PadRight(8, ' ') + "\t" + "Price".PadRight(8, ' '));
+
+            Item m1 = new Item("1. Small Pizza", "A small pizza with cheese and pepperoni", 9.99);
+
+            Item m2 = new Item("2. Medium Pizza", "A medium pizza with cheese and pepperoni", 10.99);
+
+            Item m3 = new Item("3. Large Pizza", "A large pizza with cheese and pepperoni", 12.99);
+
+            Item m4 = new Item("4. Salad", "A ceasar salad with crutons", 6.99);
+
+            Item m5 = new Item("5. Tostada", "Chef Mexico's famous tostada", 5.99);
+
+            Item m6 = new Item("6. Cheese Bread", "Garlic bread topped with blend of four cheeses", 6.99);
+
+            Item m7 = new Item("7. Wings", "One dozen wings tossed in our signature sauce", 7.99);
+
+            Item m8 = new Item("8. 2 Liter of Pop", "2 Liter of your choice", 1.99);
+
+            Item m9 = new Item("9. Brownie", "Large brownie with chocolate frosting", 2.99);
+
+            Item m10 = new Item("10. Cookie", "Chewy, chocolate chip cookie", 1.99);
+
+            Item m11 = new Item("11. Something", "Something good", 1.99);
+
+            Item m12 = new Item("12. Something", "Something else good", 2.99);
+
+
+            List<Item> MenuList = new List<Item>();
+
+
+            for (int i = 0; i < MenuList.Count; i++)
+            {
+                Console.WriteLine(MenuList[i].ToString()); //print override info from Item
+            }
+            Console.WriteLine("13. Quit");
+
+            Console.WriteLine("What would you like to order?");
+            int FoodChoice = int.Parse(Console.ReadLine());
+            FoodChoice = FoodChoice - 1;
+
+            MenuList[FoodChoice].PrintMenu();
+
+            if (FoodChoice == MenuList.Count)
+            {
+                Console.WriteLine("Goodbye!");
+            }
+
+            else
+            {
+                //Console.WriteLine(InventoryList[CarChoice].Make);
+                //validate input is only 1-6
+                MenuList[FoodChoice].PrintMenu(); //can also be done with ToString
+            }
+            //to remove from list:
+            //int indexToRemove = int.Parse(Console.ReadLine());
+            //MenuList = MenuList.Where((source, index) => index != indexToRemove).ToArray(); //(insert above) //removes from array list above, and will not print again
+
+            //need to have a return method that can be called in the main?
+
+        }
     }
 }

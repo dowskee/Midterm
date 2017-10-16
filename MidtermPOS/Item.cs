@@ -6,20 +6,34 @@ using System.Threading.Tasks;
 
 namespace MidtermPOS
 {
-    class Item
+    public class Item
     {
         //Menu class with the name, category, description, and price for each item 
         #region Variables
-        private string itemlist;
+        private int itemNumber;
+        private string name;
+        private string category;
         private string description;
         private double price;
         #endregion
 
         #region Properties
-        public string MenuItem
+        public int ItemNumber
         {
-            set { itemlist = value; }
-            get { return itemlist; }
+            set { itemNumber = value; }
+            get { return itemNumber; }
+        }
+
+        public string Name
+        {
+            set { name = value; }
+            get { return name; }
+        }
+
+        public string Category
+        {
+            set { category = value; }
+            get { return category; }
         }
 
         public string Description
@@ -33,29 +47,6 @@ namespace MidtermPOS
             set { price = value; }
             get { return price; }
         }
-        #endregion
-
-        #region Constructors
-
-        public Item()
-        {
-            itemlist = "";
-            description = "";
-            price = 0;
-        }
-
-        public Item(string itmlst, string desc, double prz)
-        {
-            itemlist = itmlst;
-            description = desc;
-            Price = prz;
-        }
-
-        #endregion
-        //needs name, price, description and category for each item
-        public virtual void PrintMenu()
-        {
-            Console.WriteLine(MenuItem.PadRight(20, ' ') + "\t" + Description.PadRight(20, ' ') + "$" + Price.ToString("N2"));
-        }
+#endregion
     }
 }

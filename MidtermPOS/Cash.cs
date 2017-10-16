@@ -8,18 +8,31 @@ namespace MidtermPOS
 {
     class Cash : Payment
     {
-        public override string generatePaymentMethod()
-
-        {
-            decimal AmountOfCash = decimal.Parse(Console.ReadLine());
-           // decimal AmountOfChange;
-
-            //mountOfChange = AmountOfCash - ItemSum
-
-            //need validation
         
-            return generatePaymentMethod();
-        }
+        
+
+            public override void generatePaymentMethod(double getpayment)
+
+            {
+                double change;
+
+                Console.WriteLine("Please enter the amount tendered:");
+
+                double payment = double.Parse(Console.ReadLine());
+
+                change = payment - getpayment;
+
+                Console.WriteLine($"Your change is {change}"); //N2 later
+
+                // decimal AmountOfChange;
+
+                //mountOfChange = AmountOfCash - ItemSum
+
+                //need validation
+
+            }
+
+        
 
     }
 }

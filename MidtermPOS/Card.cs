@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MidtermPOS
 {
-    class Card:Payment
+    class Card : Payment
     {
         private string cardnumber;
         private string ccv;
@@ -57,7 +57,6 @@ namespace MidtermPOS
 
         public static string GetValidCVV()
         {
-
             string cvv = Console.ReadLine();
 
             if (cvv.Length != 3)
@@ -85,10 +84,32 @@ namespace MidtermPOS
 
         }
 
-        public override string generatePaymentMethod()
+        bool CheckValidDateTime(int year, int month, int day)
         {
+            bool check = false;
+            while (check == false)
+                if (year <= DateTime.MaxValue.Year && year >= DateTime.MinValue.Year)
+                {
+                    if (month >= 1 && month <= 12)
+                    {
+                        if (DateTime.DaysInMonth(year, month) >= day && day >= 1)
+                            check = true;
+                    }
+                }
 
-            return generatePaymentMethod();
+            return check;
+
+        }
+
+        public override void generatePaymentMethod(double getpayment)
+        {
+            Console.WriteLine("Please enter your card number:");
+            GetvalidCardnum();
+            Console.WriteLine("Please enter your card's CVV:");
+            GetValidCVV();
+            Console.WriteLine("Please enter your card's expiration date (MM/DD/YYYY):");
+
         }
     }
+
 }

@@ -8,32 +8,9 @@ namespace MidtermPOS
 {
     abstract class Payment
     {
-        #region Variables
-        private string typeOfPayment;
-        #endregion
-
-        #region Properties
-        // properties
-        public string TypeOfPayment
-        {
-            set { typeOfPayment = value; }
-            get { return typeOfPayment; }
-        }
-
-        #endregion
-
-        #region Constructor
-        //constructor
-        public Payment()
-        {
-            TypeOfPayment = "";
-        }
-        public Payment(string typeofp)
-        {
-            TypeOfPayment = typeofp;
-        }
-
-        #endregion
-        public abstract string generatePaymentMethod();
+        
+        
+            public abstract void generatePaymentMethod(double getpayment);
+        
     }
 }

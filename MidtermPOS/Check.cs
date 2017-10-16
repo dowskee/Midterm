@@ -8,9 +8,11 @@ namespace MidtermPOS
 {
     class Check : Payment
     {
-        public override string generatePaymentMethod()
+        public override void generatePaymentMethod(double getpayment)
         {
-           int ScanCheckNumber = int.Parse(Console.ReadLine());
+            Console.WriteLine("Please enter the check number");
+            int ScanCheckNumber = int.Parse(Console.ReadLine());
+
             if (ScanCheckNumber != 9)
             {
                 Console.WriteLine("Please enter a valid check number. A check number will have 9 digits:");
@@ -22,10 +24,10 @@ namespace MidtermPOS
                     Console.WriteLine("Please enter a valid check number");
                     ScanCheckNumber = int.Parse(Console.ReadLine());
                 }
-                //return ScanCheckNumber?
+                //return ScanCheckNumber;
             }
 
-            return generatePaymentMethod();
+            Console.WriteLine($"You wrote a check for {getpayment}");
         }
     }
 }

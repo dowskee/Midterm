@@ -47,6 +47,7 @@ namespace MidtermPOS
             set { price = value; }
             get { return price; }
         }
+
 #endregion
     }
 }

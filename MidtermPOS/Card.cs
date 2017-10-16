@@ -104,7 +104,7 @@ namespace MidtermPOS
         public override void generatePaymentMethod(double getpayment)
         {
             Console.WriteLine("Please enter your card number:");
-            GetvalidCardnum();
+            GetvalidCardnum(); //calls each validation method
             Console.WriteLine("Please enter your card's CVV:");
             GetValidCVV();
             Console.WriteLine("Please enter your card's expiration date (MM/DD/YYYY):");

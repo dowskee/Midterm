@@ -7,32 +7,27 @@ using System.Threading.Tasks;
 namespace MidtermPOS
 {
     class Cash : Payment
-    {
-        
-        
+    { 
+        public override void generatePaymentMethod(double getpayment)
 
-            public override void generatePaymentMethod(double getpayment)
+        {
+            double change;
 
+            Console.WriteLine("Please enter the amount tendered:");
+            double payment = 0;
+
+            while (!double.TryParse(Console.ReadLine(), out payment))
             {
-                double change;
 
-                Console.WriteLine("Please enter the amount tendered:");
-
-                double payment = double.Parse(Console.ReadLine());
-
-                change = payment - getpayment;
-
-                Console.WriteLine($"Your change is {change}"); //N2 later
-
-                // decimal AmountOfChange;
-
-                //mountOfChange = AmountOfCash - ItemSum
-
-                //need validation
+                Console.WriteLine("Please use cash nothing else!");
 
             }
 
-        
+            change = payment - getpayment;
+
+            Console.WriteLine($"\n\n Your change is ${Math.Round(change, 2)}");
+
+        }
 
     }
 }

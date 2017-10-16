@@ -39,118 +39,115 @@ namespace MidtermPOS
                 menuItems.Add(newItem);
             }
 
-            
-            //int usernumber = int.Parse(Console.ReadLine());
-
-            //for (int i = 0; i < menuItems.Count; i++)
-            //{
-            //    if (usernumber == menuItems[i].ItemNumber)
-            //    {
-            //        Console.WriteLine(menuItems[i].Name + " " + menuItems[i].Description + " " + menuItems[i].Price);
-            //    }
-            //}
-
-            
-
-            int userOption = 0;
+            string userOption = "";
             while (true)
             {
                 Console.WriteLine("Please choose an option");
                 Console.WriteLine("1. Add an item");
-           
                 Console.WriteLine("2. Checkout and Pay");
                 Console.WriteLine("3. Exit");
-                userOption = int.Parse(Console.ReadLine());
-              
-                   
-
-                    if (userOption == 1)
-                    {
-                       
-                        Console.WriteLine("Please choose an item from the list");
-                        Console.WriteLine(Menu);
-                       int menuSelection = int.Parse(Console.ReadLine());
-                        Cart.Add(menuItems[menuSelection - 1]);
-                    Console.WriteLine("You added "+ menuItems[menuSelection - 1].Name);
-                        
-                    }
 
 
 
-                   
-                    else if (userOption == 2)
-                    {
+                userOption = Console.ReadLine();
 
- double getpayment = 0;
-                        double subtotal = 0;
-                        double grandtotal = 0;
+                if (userOption == "1")
+                {
+
+                    Console.WriteLine("Please choose an item from the list");
+                    Console.WriteLine(Menu);
+                    Console.Beep();
+                    int menuSelection = int.Parse(Console.ReadLine());
+                    Console.Beep();
+                    Cart.Add(menuItems[menuSelection - 1]);
+                    Console.WriteLine($"You added {menuItems[menuSelection - 1].Name}");
+
+                }
+
+                else if (userOption == "2")
+                {
+
+                    double getpayment = 0;
+                    double subtotal = 0;
+                    double grandtotal = 0;
 
                     for (int i = 0; i < Cart.Count; i++)
                     {
-                       
-                        //double price = PrintMenu(double.Parse(Price.ToString()));
-                        //subtotal = PrintMenu(Price.ToString()) * quantity;
-
-                        subtotal = subtotal +Cart[i].Price; //split?
+                        subtotal = subtotal + Cart[i].Price; //split?
                     }
-                            grandtotal = subtotal * 1.06;
+                    grandtotal = subtotal * 1.06;
+                    getpayment = grandtotal;
+                    // Console.WriteLine(menuItems[i]);
+                    Console.WriteLine($"Your subtotal is {subtotal}");
+                    Console.WriteLine($"Your grand total with tax is {Math.Round(getpayment, 2)}");
+                    //sum total and call
+                    Console.WriteLine("How would you like to pay? Cash, Credit or Check?");
+                    Console.Beep();
+                    string PaymentOption = Console.ReadLine().ToLower();
 
-                           // Console.WriteLine(menuItems[i]);
-                            Console.WriteLine($"Your subtotal is {subtotal}");
-                            Console.WriteLine($"Your grand total with tax is {grandtotal}");
-                            //sum total and call
-                            Console.WriteLine("How would you like to pay? Cash, Credit or Check?");
+                    if ((PaymentOption == "cash") || (PaymentOption == "Cash"))
+                    {
+                        Cash PaymentOptionCash = new Cash();
+                        PaymentOptionCash.generatePaymentMethod(getpayment);
+                    }
 
-                            string PaymentOption = Console.ReadLine().ToLower();
+                    else if (PaymentOption == "Credit" || PaymentOption == "credit")
+                    {
+                        Card PaymentOptionCard = new Card();
+                        PaymentOptionCard.generatePaymentMethod(getpayment);
+                    }
 
-                            if ((PaymentOption == "cash") || (PaymentOption == "Cash"))
-                            {
-                                Cash PaymentOptionCash = new Cash();
-                                PaymentOptionCash.generatePaymentMethod(getpayment);
-                            }
+                    else if (PaymentOption == "Check" || PaymentOption == "check")
+                    {
+                        Check PaymentOptionCheck = new Check();
+                        PaymentOptionCheck.generatePaymentMethod(getpayment);
+                    }
 
-                            else if (PaymentOption == "Credit" || PaymentOption == "credit")
-                            {
-                                Card PaymentOptionCard = new Card();
-                                PaymentOptionCard.generatePaymentMethod(getpayment);
-                            }
-
-                            else if (PaymentOption == "Check" || PaymentOption == "check")
-                            {
-                                Check PaymentOptionCheck = new Check();
-                                PaymentOptionCheck.generatePaymentMethod(getpayment);
-                            }
-
-                            else if (PaymentOption != "Check" || PaymentOption != "Credit" || PaymentOption != "Cash")
-                            {
-                                Console.WriteLine("Please enter a valid payment option. Cash, Credit or Check:");
-                            }
-                            else
-                            {
-                                int id = 0;
-
-                                while (!int.TryParse(Console.ReadLine(), out id))
-                                {
-                                    Console.WriteLine("Nice try.");
-                                    //return PaymentValid?
-                                }
-                            }
-                        }
-
-                    
-
+                    else if (PaymentOption != "Check" || PaymentOption != "Credit" || PaymentOption != "Cash")
+                    {
+                        Console.WriteLine("Please enter a valid payment option. Cash, Credit or Check:");
+                    }
                     else
                     {
-                        Console.WriteLine("Thanks, see you later");
-                        break;
+                        int id = 0;
+
+                        while (!int.TryParse(Console.ReadLine(), out id))
+                        {
+                            Console.WriteLine("Nice try.");
+                            
+                        }
                     }
+                    //print receipt
+                    Console.WriteLine("\nReceipt\n");
+                    Console.Write("Date: ");
+                    Console.WriteLine(DateTime.Now);
+
+                    Console.WriteLine("Your cashier was Abraham");
+                    Console.WriteLine("-------------------------");
+                    Console.WriteLine("Subtotal:" + " " + subtotal.ToString("n2"));
+
+                    Console.WriteLine("=========================");
+
+                    Console.WriteLine("Grand Total:" + " " + grandtotal.ToString("n2"));
+                    Console.WriteLine("=========================");
+                }
 
 
-                
+
+                else if (userOption == "3")
+                {
+                    Console.WriteLine("Thanks, see you later");
+                    break;
+                }
+
+                else
+                {
+                    Console.WriteLine("Please enter a valid selection!!!");
+                }
+
+
+
             }
-
-
-
 
         }
     }

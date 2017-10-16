@@ -24,7 +24,7 @@ namespace MidtermPOS
             List<Item> Cart = new List<Item>();
 
             StreamReader rd = new StreamReader("Menu.txt");
-
+            string Menu = "";
             while (!rd.EndOfStream)
             {
                 string str = rd.ReadLine();
@@ -35,12 +35,12 @@ namespace MidtermPOS
                 newItem.Name = strArray[1];
                 newItem.Description = strArray[2];
                 newItem.Price = double.Parse(strArray[3].Remove(0, 1));
-
+                Menu = Menu + str+"\n";
                 menuItems.Add(newItem);
             }
 
-            Console.WriteLine("Please pick an item number");
-            int usernumber = int.Parse(Console.ReadLine());
+            
+            //int usernumber = int.Parse(Console.ReadLine());
 
             //for (int i = 0; i < menuItems.Count; i++)
             //{
@@ -57,19 +57,21 @@ namespace MidtermPOS
             {
                 Console.WriteLine("Please choose an option");
                 Console.WriteLine("1. Add an item");
-                //Console.WriteLine("2. Remove an item");
+           
                 Console.WriteLine("2. Checkout and Pay");
                 Console.WriteLine("3. Exit");
-                bool programcontinues = true;
-                while (programcontinues == true)
-                {
-                    userOption = int.Parse(Console.ReadLine());
+                userOption = int.Parse(Console.ReadLine());
+              
+                   
 
                     if (userOption == 1)
                     {
-
-                        Cart.Add(menuItems[usernumber-1]);
-                         
+                       
+                        Console.WriteLine("Please choose an item from the list");
+                        Console.WriteLine(Menu);
+                       int menuSelection = int.Parse(Console.ReadLine());
+                        Cart.Add(menuItems[menuSelection - 1]);
+                    Console.WriteLine("You added "+ menuItems[menuSelection - 1].Name);
                         
                     }
 
@@ -79,21 +81,21 @@ namespace MidtermPOS
                     else if (userOption == 2)
                     {
 
+ double getpayment = 0;
+                        double subtotal = 0;
+                        double grandtotal = 0;
 
+                    for (int i = 0; i < Cart.Count; i++)
+                    {
+                       
+                        //double price = PrintMenu(double.Parse(Price.ToString()));
+                        //subtotal = PrintMenu(Price.ToString()) * quantity;
 
-                        for (int i = 0; i < menuItems.Count; i++)
-                        {
-                            double getpayment = 0;
-                            double subtotal = 0;
-                            double grandtotal = 0;
-                            //double price = PrintMenu(double.Parse(Price.ToString()));
-                            //subtotal = PrintMenu(Price.ToString()) * quantity;
+                        subtotal = subtotal +Cart[i].Price; //split?
+                    }
+                            grandtotal = subtotal * 1.06;
 
-                            //subtotal = subtotal + menuItems.Add(newItem.Price); //split?
-
-                            grandtotal = subtotal * 0.06;
-
-                            Console.WriteLine(menuItems[i]);
+                           // Console.WriteLine(menuItems[i]);
                             Console.WriteLine($"Your subtotal is {subtotal}");
                             Console.WriteLine($"Your grand total with tax is {grandtotal}");
                             //sum total and call
@@ -135,14 +137,16 @@ namespace MidtermPOS
                             }
                         }
 
-                    }
+                    
 
                     else
                     {
                         Console.WriteLine("Thanks, see you later");
                         break;
                     }
-                }
+
+
+                
             }
 
 
